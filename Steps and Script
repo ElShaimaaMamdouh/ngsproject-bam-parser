@@ -22,8 +22,11 @@ mkdir NGS_Proj
 cp dmel-all-gene-r6.27.fasta /home/NGS_Proj
 cp dmel-all-r6.27.gtf /home/elshaimaa/NGS_Proj/
 cp SRR8878057.fastq /home/elshaimaa/NGS_Proj
-###########################################################################
+
 #check the quality of reads obtained
+fastqc -t 1 -f fastq -noextract SRR8878057.fastq
+###########################################################################
+#screen output
 ##FastQC	0.11.8
 #Basic Statistics	pass
 #Measure	Value
