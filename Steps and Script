@@ -1,6 +1,6 @@
 #searched online for resources to obtain the whole genome of Drosophila melanogaster and RNA-Seq reads from the SRA
-#obtained and downloaded the whole genome from the flybase.net: ftp://ftp.flybase.net/genomes/dmel/current/fasta/
-#obtained and downloaded the whole genome gtf file: ftp://ftp.flybase.net/genomes/dmel/current/gtf/
+#obtained and downloaded the whole genome and gtf files from the flybase.net: ftp://ftp.flybase.net/genomes/dmel/current/fasta/
+#and ftp://ftp.flybase.net/genomes/dmel/current/gtf/
 #obtained and downloaded the RNA-Seq reads from the SRA: https://www.ncbi.nlm.nih.gov/sra/SRX5664975[accn]?report=Full
 
 #unzip the whole genome
