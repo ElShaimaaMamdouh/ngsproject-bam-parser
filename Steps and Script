@@ -1,9 +1,13 @@
 #searched online for resources to obtain the whole genome of Drosophila melanogaster and RNA-Seq reads from the SRA
 #obtained and downloaded the whole genome from the flybase.net: ftp://ftp.flybase.net/genomes/dmel/current/fasta/
+#obtained and downloaded the whole genome gtf file: ftp://ftp.flybase.net/genomes/dmel/current/gtf/
 #obtained and downloaded the RNA-Seq reads from the SRA: https://www.ncbi.nlm.nih.gov/sra/SRX5664975[accn]?report=Full
 
 #unzip the whole genome
 gunzip gunzip dmel-all-gene-r6.27.fasta.gz
+
+#unzip the gtf file
+gunzip dmel-all-r6.27.gtf.gz
 
 wget -c ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR887/SRR8878057/SRR8878057.sra
 sudo apt install sra-toolkit
@@ -16,6 +20,7 @@ mkdir NGS_Proj
 
 #copy the files needed from their destination to the new directory
 cp dmel-all-gene-r6.27.fasta /home/NGS_Proj
+cp dmel-all-r6.27.gtf /home/elshaimaa/NGS_Proj/
 cp SRR8878057.fastq /home/elshaimaa/NGS_Proj
 ###########################################################################
 #check the quality of reads obtained
@@ -33,26 +38,54 @@ cp SRR8878057.fastq /home/elshaimaa/NGS_Proj
 #as per the above obtained data, we don't need trimming
 
 #index the genome
-bwa index -a bwtsw dmel-all-gene-r6.27.fasta
+mkdir -p ~/NGS_Proj/hisat_align/hisat_index && cd ~/NGS_Proj/hisat_align/hisat_index
+ln -s ~/NGS_Proj/dmel-all-gene-r6.27.fasta .
+ln -s ~/NGS_Proj/SRR8878057.fastq .
+ln -s ~/NGS_Proj/dmel-all-r6.27.gtf
+hisat2_extract_splice_sites.py ~/NGS_Proj/dmel-all-r6.27.gtf > splicesites.tsv
+hisat2_extract_exons.py ~/NGS_Proj/dmel-all-r6.27.gtf > exons.tsv
+hisat2-build -p 1 --ss splicesites.tsv --exon exons.tsv dmel-all-gene-r6.27.fasta dmel-all-gene-r6.27
+
 ############################################################################
 #screen output:
-[bwa_index] Pack FASTA... 1.70 sec
-[bwa_index] Construct BWT for the packed sequence...
-[BWTIncCreate] textLength=204385202, availableWord=26381084
-[BWTIncConstructFromPacked] 10 iterations done. 43516610 characters processed.
-[BWTIncConstructFromPacked] 20 iterations done. 80392946 characters processed.
-[BWTIncConstructFromPacked] 30 iterations done. 113164658 characters processed.
-[BWTIncConstructFromPacked] 40 iterations done. 142288210 characters processed.
-[BWTIncConstructFromPacked] 50 iterations done. 168169266 characters processed.
-[BWTIncConstructFromPacked] 60 iterations done. 191168370 characters processed.
-[bwt_gen] Finished constructing BWT in 67 iterations.
-[bwa_index] 98.15 seconds elapse.
-[bwa_index] Update BWT... 1.62 sec
-[bwa_index] Pack forward-only FASTA... 1.15 sec
-[bwa_index] Construct SA from BWT and Occ... 43.46 sec
-[main] Version: 0.7.17-r1188
-[main] CMD: bwa index -a bwtsw dmel-all-gene-r6.27.fasta
-[main] Real time: 149.526 sec; CPU: 146.072 sec
+Exiting GFM::buildToDisk()
+Returning from initFromVector
+Wrote 45705331 bytes to primary GFM file: dmel-all-gene-r6.27.fasta.1.ht2
+Wrote 25520668 bytes to secondary GFM file: dmel-all-gene-r6.27.fasta.2.ht2
+Re-opening _in1 and _in2 as input streams
+Returning from GFM constructor
+Returning from initFromVector
+Wrote 179101249 bytes to primary GFM file: dmel-all-gene-r6.27.fasta.5.ht2
+Wrote 25649276 bytes to secondary GFM file: dmel-all-gene-r6.27.fasta.6.ht2
+Re-opening _in5 and _in5 as input streams
+Returning from HierEbwt constructor
+Headers:
+    len: 102082641
+    gbwtLen: 102082642
+    nodes: 102082642
+    sz: 25520661
+    gbwtSz: 25520661
+    lineRate: 7
+    offRate: 4
+    offMask: 0xfffffff0
+    ftabChars: 10
+    eftabLen: 0
+    eftabSz: 0
+    ftabLen: 1048577
+    ftabSz: 4194308
+    offsLen: 6380166
+    offsSz: 25520664
+    lineSz: 128
+    sideSz: 128
+    sideGbwtSz: 112
+    sideGbwtLen: 448
+    numSides: 227864
+    numLines: 227864
+    gbwtTotLen: 29166592
+    gbwtTotSz: 29166592
+    reverse: 0
+    linearFM: Yes
+Total time for call to driver() for forward index: 00:03:36
 #############################################################################
 #reads alignment to the genome
 
