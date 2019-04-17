@@ -1,0 +1,61 @@
+#searched online for resources to obtain the whole genome of Drosophila melanogaster and RNA-Seq reads from the SRA
+#obtained and downloaded the whole genome from the flybase.net: ftp://ftp.flybase.net/genomes/dmel/current/fasta/
+#obtained and downloaded the RNA-Seq reads from the SRA: https://www.ncbi.nlm.nih.gov/sra/SRX5664975[accn]?report=Full
+
+#unzip the whole genome
+gunzip gunzip dmel-all-gene-r6.27.fasta.gz
+
+wget -c ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByRun/sra/SRR/SRR887/SRR8878057/SRR8878057.sra
+sudo apt install sra-toolkit
+
+#convert the reads file from sra to fastq
+fastq-dump SRR8878057.sra
+
+#make a directory to have all files for the project
+mkdir NGS_Proj
+
+#copy the files needed from their destination to the new directory
+cp dmel-all-gene-r6.27.fasta /home/NGS_Proj
+cp SRR8878057.fastq /home/elshaimaa/NGS_Proj
+###########################################################################
+#check the quality of reads obtained
+##FastQC	0.11.8
+#Basic Statistics	pass
+#Measure	Value
+#Filename	SRR8878057.fastq
+#File type	Conventional base calls
+#Encoding	Sanger / Illumina 1.9
+#Total Sequences	18257083
+#Sequences flagged as poor quality	0
+#Sequence length	49
+#%GC	47
+###########################################################################
+#as per the above obtained data, we don't need trimming
+
+#index the genome
+bwa index -a bwtsw dmel-all-gene-r6.27.fasta
+############################################################################
+#screen output:
+[bwa_index] Pack FASTA... 1.70 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=204385202, availableWord=26381084
+[BWTIncConstructFromPacked] 10 iterations done. 43516610 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 80392946 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 113164658 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 142288210 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 168169266 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 191168370 characters processed.
+[bwt_gen] Finished constructing BWT in 67 iterations.
+[bwa_index] 98.15 seconds elapse.
+[bwa_index] Update BWT... 1.62 sec
+[bwa_index] Pack forward-only FASTA... 1.15 sec
+[bwa_index] Construct SA from BWT and Occ... 43.46 sec
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa index -a bwtsw dmel-all-gene-r6.27.fasta
+[main] Real time: 149.526 sec; CPU: 146.072 sec
+#############################################################################
+#reads alignment to the genome
+
+
+
+
