@@ -25,20 +25,6 @@ cp SRR8878057.fastq /home/elshaimaa/NGS_Proj
 
 #check the quality of reads obtained
 fastqc -t 1 -f fastq -noextract SRR8878057.fastq
-###########################################################################
-#screen output
-##FastQC	0.11.8
-#Basic Statistics	pass
-#Measure	Value
-#Filename	SRR8878057.fastq
-#File type	Conventional base calls
-#Encoding	Sanger / Illumina 1.9
-#Total Sequences	18257083
-#Sequences flagged as poor quality	0
-#Sequence length	49
-#%GC	47
-###########################################################################
-#as per the above obtained data, we don't need trimming
 
 #index the genome
 mkdir -p ~/NGS_Proj/hisat_align/hisat_index && cd ~/NGS_Proj/hisat_align/hisat_index
@@ -48,50 +34,3 @@ ln -s ~/NGS_Proj/dmel-all-r6.27.gtf
 hisat2_extract_splice_sites.py ~/NGS_Proj/dmel-all-r6.27.gtf > splicesites.tsv
 hisat2_extract_exons.py ~/NGS_Proj/dmel-all-r6.27.gtf > exons.tsv
 hisat2-build -p 1 --ss splicesites.tsv --exon exons.tsv dmel-all-gene-r6.27.fasta dmel-all-gene-r6.27
-
-############################################################################
-#screen output:
-Exiting GFM::buildToDisk()
-Returning from initFromVector
-Wrote 45705331 bytes to primary GFM file: dmel-all-gene-r6.27.fasta.1.ht2
-Wrote 25520668 bytes to secondary GFM file: dmel-all-gene-r6.27.fasta.2.ht2
-Re-opening _in1 and _in2 as input streams
-Returning from GFM constructor
-Returning from initFromVector
-Wrote 179101249 bytes to primary GFM file: dmel-all-gene-r6.27.fasta.5.ht2
-Wrote 25649276 bytes to secondary GFM file: dmel-all-gene-r6.27.fasta.6.ht2
-Re-opening _in5 and _in5 as input streams
-Returning from HierEbwt constructor
-Headers:
-    len: 102082641
-    gbwtLen: 102082642
-    nodes: 102082642
-    sz: 25520661
-    gbwtSz: 25520661
-    lineRate: 7
-    offRate: 4
-    offMask: 0xfffffff0
-    ftabChars: 10
-    eftabLen: 0
-    eftabSz: 0
-    ftabLen: 1048577
-    ftabSz: 4194308
-    offsLen: 6380166
-    offsSz: 25520664
-    lineSz: 128
-    sideSz: 128
-    sideGbwtSz: 112
-    sideGbwtLen: 448
-    numSides: 227864
-    numLines: 227864
-    gbwtTotLen: 29166592
-    gbwtTotSz: 29166592
-    reverse: 0
-    linearFM: Yes
-Total time for call to driver() for forward index: 00:03:36
-#############################################################################
-#reads alignment to the genome
-
-
-
-
