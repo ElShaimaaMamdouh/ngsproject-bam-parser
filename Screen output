@@ -54,4 +54,11 @@ Headers:
 Total time for call to driver() for forward index: 00:03:36
 #############################################################################
 
-
+#Screen output from hisat2 alignment
+18257083 reads; of these:
+  18257083 (100.00%) were unpaired; of these:
+    2312144 (12.66%) aligned 0 times
+    12833405 (70.29%) aligned exactly 1 time
+    3111534 (17.04%) aligned >1 times
+87.34% overall alignment rate
+###############################################################################
