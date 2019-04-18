@@ -65,3 +65,12 @@ Total time for call to driver() for forward index: 00:03:36
 
 #Screen output from sorting the bam file
 [bam_sort_core] merging from 6 files and 1 in-memory blocks...
+###############################################################################
+
+#Screen output from the assembling step
+WARNING: no reference transcripts were found for the genomic sequences where reads were mapped!
+Please make sure the -G annotation file uses the same naming convention for the genome sequences.
+#################################################################################
+
+
+
