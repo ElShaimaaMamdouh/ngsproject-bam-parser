@@ -34,3 +34,15 @@ ln -s ~/NGS_Proj/dmel-all-r6.27.gtf
 hisat2_extract_splice_sites.py ~/NGS_Proj/dmel-all-r6.27.gtf > splicesites.tsv
 hisat2_extract_exons.py ~/NGS_Proj/dmel-all-r6.27.gtf > exons.tsv
 hisat2-build -p 1 --ss splicesites.tsv --exon exons.tsv dmel-all-gene-r6.27.fasta dmel-all-gene-r6.27
+
+#alignment
+cd NGS_Proj/hisat_align/
+hisat2 -p 1 -x hisat_index/dmel-all-gene-r6.27.fasta --dta --rna-strandness F hisat_index/SRR8878057.fastq -S SRR8878057.sam
+
+#file preparation for assembly
+cd ..
+sudo apt install bamtools
+cd hisat_align/
+samtools view -b SRR8878057.sam > SRR8878057.bam
+samtools sort SRR8878057.bam -o SRR8878057.sorted.bam
+
