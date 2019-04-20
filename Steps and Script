@@ -46,7 +46,5 @@ cd hisat_align/
 samtools view -b SRR8878057.sam > SRR8878057.bam
 samtools sort SRR8878057.bam -o SRR8878057.sorted.bam
 
-#assembly
-stringtie ~/NGS_Proj/hisat_align/SRR8878057.sorted.bam --rf -l SRR8878057 -G ~/NGS_Proj/dmel-all-r6.27.gtf -o SRR8878057.gtf
 
 
