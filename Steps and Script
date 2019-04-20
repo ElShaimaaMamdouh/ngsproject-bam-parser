@@ -45,6 +45,7 @@ sudo apt install bamtools
 cd hisat_align/
 samtools view -b SRR8878057.sam > SRR8878057.bam
 samtools sort SRR8878057.bam -o SRR8878057.sorted.bam
+samtools view -F 256 SRR8878057.sorted.bam > SRR8878057.tsv
 
 
 
