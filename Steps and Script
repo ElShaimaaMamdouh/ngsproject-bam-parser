@@ -1,4 +1,4 @@
-#searched online for resources to obtain the whole genome of Drosophila melanogaster and RNA-Seq reads from the SRA
+#searched online for resources to obtain the whole genome of Drosophila melanogaster and RNA-Seq reads 
 #obtained and downloaded the whole genome and gtf files from the flybase.net: ftp://ftp.flybase.net/genomes/dmel/current/fasta/
 #and ftp://ftp.flybase.net/genomes/dmel/current/gtf/
 #obtained and downloaded the RNA-Seq reads from the SRA: https://www.ncbi.nlm.nih.gov/sra/SRX5664975[accn]?report=Full
@@ -36,18 +36,17 @@ mkdir -p bwa_align/bwa_index && cd bwa_align/bwa_index
 ln -s ~/NGS_Proj/dmel-all-gene-r6.27.fasta 
 bwa index -a bwtsw dmel-all-gene-r6.27.fasta 
 
-#alignment
+#alignment of obtained read to the reference genome
 cd ..
 /usr/bin/time -v bwa mem bwa_index/dmel-all-gene-r6.27.fasta ~/NGS_Proj/$sample.fastq > $sample.sam
 
 #summary status of the sam file
 samtools flagstat NGS_Proj/bwa_align/$sample.sam > NGS_Proj/bwa_align/$sample_stats.out
 
-#converting from sam to bam files
+#converting from sam to bam file 
 samtools view -bS $sample.sam > $sample.bam
 
-
-#sorting and indexing the bam file
+#sorting and indexing the bam file to visualize it via IGV
 samtools sort $sample.bam -o $sample.sorted.bam
 samtools index $sample.sorted.bam
 
@@ -59,9 +58,14 @@ bash $IGV -g bwa_align/bwa_index/dmel-all-gene-r6.27.fasta bwa_align/$sample.sor
 #view and extract details of the 96 supplementary reads found
 cd NGS_Proj/bwa_align/
 samtools view -b -f 2048 $sample.sorted.bam > $sample.supp.bam
+#obtained the flag for supplementary read from: (https://broadinstitute.github.io/picard/explain-flags.html)
 samtools flagstat $sample.supp.bam
 samtools view $sample.supp.bam
+
+#extraction of the reference ID and the position of read to the reference
 samtools view $sample.supp.bam | cut -f 3,4| head
+
+#sorting the output
 samtools view $sample.supp.bam | cut -f 3,4 | sort |  uniq -c |
 
 
