@@ -1,7 +1,5 @@
 # ngsproject-bam-parser
-The aim is to detect and report loci of supplementary reads found in a bam file.
-
-Drosophila meanogaster is the organism used.
+The aim is to detect and report loci of supplementary reads found in a bam file of the Drosophila melanogaster.
 
 Sources used to obtain the whole genome (fasta), annotated genome (gtf) and RNA-seq reads, are mentioned in the script.
 
