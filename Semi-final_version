@@ -62,7 +62,6 @@ samtools view -b -f 2048 $sample.sorted.bam > $sample.supp.bam
 samtools flagstat $sample.supp.bam
 samtools view $sample.supp.bam
 samtools view $sample.supp.bam | cut -f 3,4| head
-samtools view $sample.supp.bam | cut -f 3,4,1 | sort | uniq -c |
-samtools view $sample.supp.bam | cut -f 3,4 | sort |
+samtools view $sample.supp.bam | cut -f 3,4 | sort |  uniq -c |
 
 
