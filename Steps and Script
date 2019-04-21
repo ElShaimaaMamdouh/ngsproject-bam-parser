@@ -65,7 +65,7 @@ samtools view $sample.supp.bam
 #extraction of the reference ID and the position of read to the reference
 samtools view $sample.supp.bam | cut -f 3,4| head
 
-#sorting the output
-samtools view $sample.supp.bam | cut -f 3,4 | sort |  uniq -c |
+#sorting the output with number of occurances of each supplementary read
+samtools view $sample.supp.bam | cut -f 3,4 | sort |  uniq -c | head
 
 
