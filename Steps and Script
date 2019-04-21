@@ -27,25 +27,33 @@ cp SRR8878057.fastq /home/elshaimaa/NGS_Proj
 fastqc -t 1 -f fastq -noextract SRR8878057.fastq
 
 #index the genome
-mkdir -p ~/NGS_Proj/hisat_align/hisat_index && cd ~/NGS_Proj/hisat_align/hisat_index
-ln -s ~/NGS_Proj/dmel-all-gene-r6.27.fasta .
-ln -s ~/NGS_Proj/SRR8878057.fastq .
-ln -s ~/NGS_Proj/dmel-all-r6.27.gtf
-hisat2_extract_splice_sites.py ~/NGS_Proj/dmel-all-r6.27.gtf > splicesites.tsv
-hisat2_extract_exons.py ~/NGS_Proj/dmel-all-r6.27.gtf > exons.tsv
-hisat2-build -p 1 --ss splicesites.tsv --exon exons.tsv dmel-all-gene-r6.27.fasta dmel-all-gene-r6.27
+conda activate ngs1
+bwa
+cd NGS_Proj/
+mkdir -p bwa_align/bwa_index && cd bwa_align/bwa_index
+ln -s ~/NGS_Proj/dmel-all-gene-r6.27.fasta 
+bwa index -a bwtsw dmel-all-gene-r6.27.fasta 
 
 #alignment
-cd NGS_Proj/hisat_align/
-hisat2 -p 1 -x hisat_index/dmel-all-gene-r6.27.fasta --dta --rna-strandness F hisat_index/SRR8878057.fastq -S SRR8878057.sam
-
-#file preparation for assembly
 cd ..
-sudo apt install bamtools
-cd hisat_align/
-samtools view -b SRR8878057.sam > SRR8878057.bam
+/usr/bin/time -v bwa mem bwa_index/dmel-all-gene-r6.27.fasta ~/NGS_Proj/SRR8878057.fastq > SRR8878057.sam
+
+#summary status of the sam file
+samtools flagstat NGS_Proj/bwa_align/SRR8878057.sam > NGS_Proj/bwa_align/SRR8878057_stats.out
+
+#converting from sam to bam files
+samtools view -bS SRR8878057.sam > SRR8878057.bam
+
+#sorting and indexing the bam file
 samtools sort SRR8878057.bam -o SRR8878057.sorted.bam
-samtools view -F 256 SRR8878057.sorted.bam > SRR8878057.tsv
+samtools index SRR8878057.sorted.bam
+
+#viewing bam file using IGV
+bash $IGV -g bwa_align/bwa_index/dmel-all-gene-r6.27.fasta bwa_align/SRR8878057.sorted.bam.bai 
+#a message occurred requesting to use the bam file directly, because bai is not supported
+bash $IGV -g bwa_align/bwa_index/dmel-all-gene-r6.27.fasta bwa_align/SRR8878057.sorted.bam 
+
+
 
 
 
