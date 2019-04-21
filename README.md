@@ -4,7 +4,6 @@ The aim is to detect and report loci of supplementary reads found in a bam file.
 Drosophila meanogaster is the organism used.
 
 Sources used to obtain the whole genome (fasta), annotated genome (gtf) and RNA-seq reads, are mentioned in the script.
-#################################################################################################################################
 
 #screen output from fastqc:
 #FastQC	0.11.8
@@ -17,7 +16,6 @@ Total Sequences	18257083
 Sequences flagged as poor quality	0
 Sequence length	49
 %GC	47
-#################################################################################################################################
 
 #screen output from indexing
 index [bwa_index] Pack FASTA... 1.67 sec
@@ -37,7 +35,7 @@ index [bwa_index] Pack FASTA... 1.67 sec
 [main] Version: 0.7.17-r1188
 [main] CMD: bwa index -a bwtsw dmel-all-gene-r6.27.fasta
 [main] Real time: 149.253 sec; CPU: 146.179 sec
-#################################################################################################################################
+
 #screen outout from alignment
 [main] Real time: 2803.426 sec; CPU: 2846.461 sec
 	Command being timed: "bwa mem bwa_index/dmel-all-gene-r6.27.fasta /home/elshaimaa/NGS_Proj/SRR8878057.fastq"
@@ -63,7 +61,6 @@ index [bwa_index] Pack FASTA... 1.67 sec
 	Signals delivered: 0
 	Page size (bytes): 4096
 Exit status: 0
-#################################################################################################################################
 
 #Screen output from samtools flagstat:
 18257179 + 0 in total (QC-passed reads + QC-failed reads)
@@ -79,7 +76,6 @@ Exit status: 0
 0 + 0 singletons (N/A : N/A)
 0 + 0 with mate mapped to a different chr
 0 + 0 with mate mapped to a different chr (mapQ>=5)
-#################################################################################################################################
 
 #Screen output with first 10 lines of extracted supplementary reads
 FBgn0011760	11799
@@ -92,7 +88,6 @@ FBgn0029822	894
 FBgn0029822	894
 FBgn0029822	894
 FBgn0029822	894
-#################################################################################################################################
 
 #Screen output with first 10 lines of number of occurances of the extracted supplementary reads
       1 FBgn0001257	174
@@ -105,7 +100,6 @@ FBgn0029822	894
       1 FBgn0012034	9490
       1 FBgn0013334	25543
       1 FBgn0014020	3253
-#################################################################################################################################
 
 References:
 https://www.ncbi.nlm.nih.gov/pubmed/29619822
