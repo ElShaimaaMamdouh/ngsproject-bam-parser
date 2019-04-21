@@ -1,6 +1,111 @@
 # ngsproject-bam-parser
-The aim is to detect and report loci of supplementary reads found in a bam file
-Drosophila meanogaster is the organism used
+The aim is to detect and report loci of supplementary reads found in a bam file.
+
+Drosophila meanogaster is the organism used.
+
+Sources used to obtain the whole genome (fasta), annotated genome (gtf) and RNA-seq reads, are mentioned in the script.
+#################################################################################################################################
+
+#screen output from fastqc:
+#FastQC	0.11.8
+Basic Statistics	pass
+Measure	Value
+Filename	SRR8878057.fastq
+File type	Conventional base calls
+Encoding	Sanger / Illumina 1.9
+Total Sequences	18257083
+Sequences flagged as poor quality	0
+Sequence length	49
+%GC	47
+#################################################################################################################################
+
+#screen output from indexing
+index [bwa_index] Pack FASTA... 1.67 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=204385202, availableWord=26381084
+[BWTIncConstructFromPacked] 10 iterations done. 43516610 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 80392946 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 113164658 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 142288210 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 168169266 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 191168370 characters processed.
+[bwt_gen] Finished constructing BWT in 67 iterations.
+[bwa_index] 97.94 seconds elapse.
+[bwa_index] Update BWT... 1.60 sec
+[bwa_index] Pack forward-only FASTA... 1.13 sec
+[bwa_index] Construct SA from BWT and Occ... 43.84 sec
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa index -a bwtsw dmel-all-gene-r6.27.fasta
+[main] Real time: 149.253 sec; CPU: 146.179 sec
+#################################################################################################################################
+#screen outout from alignment
+[main] Real time: 2803.426 sec; CPU: 2846.461 sec
+	Command being timed: "bwa mem bwa_index/dmel-all-gene-r6.27.fasta /home/elshaimaa/NGS_Proj/SRR8878057.fastq"
+	User time (seconds): 2828.51
+	System time (seconds): 17.96
+	Percent of CPU this job got: 101%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 46:43.44
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 501460
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 751606
+	Voluntary context switches: 436659
+	Involuntary context switches: 269098
+	Swaps: 0
+	File system inputs: 7907984
+	File system outputs: 6647344
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+Exit status: 0
+#################################################################################################################################
+
+#Screen output from samtools flagstat:
+18257179 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 secondary
+96 + 0 supplementary
+0 + 0 duplicates
+16881411 + 0 mapped (92.46% : N/A)
+0 + 0 paired in sequencing
+0 + 0 read1
+0 + 0 read2
+0 + 0 properly paired (N/A : N/A)
+0 + 0 with itself and mate mapped
+0 + 0 singletons (N/A : N/A)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+#################################################################################################################################
+
+#Screen output with first 10 lines of extracted supplementary reads
+FBgn0011760	11799
+FBgn0052767	4015
+FBgn0029814	16985
+FBgn0029814	16985
+FBgn0029814	16985
+FBgn0029822	894
+FBgn0029822	894
+FBgn0029822	894
+FBgn0029822	894
+FBgn0029822	894
+#################################################################################################################################
+
+#Screen output with first 10 lines of number of occurances of the extracted supplementary reads
+      1 FBgn0001257	174
+      3 FBgn0003507	13305
+      3 FBgn0003507	13307
+      1 FBgn0004656	20710
+      2 FBgn0004885	10447
+      4 FBgn0010113	57032
+      1 FBgn0011760	11799
+      1 FBgn0012034	9490
+      1 FBgn0013334	25543
+      1 FBgn0014020	3253
+#################################################################################################################################
 
 References:
 https://www.ncbi.nlm.nih.gov/pubmed/29619822
@@ -31,60 +136,3 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3032934/
   Bryce Daines,Hui Wang,Liguo Wang,Yumei Li,Yi Han,David Emmert,William Gelbart, Xia Wang, Wei Li,ichard Gibbs, and Rui Chen
 
 
-###########################################################################
-#screen output from fastqc
-##FastQC	0.11.8
-#Basic Statistics	pass
-#Measure	Value
-#Filename	SRR8878057.fastq
-#File type	Conventional base calls
-#Encoding	Sanger / Illumina 1.9
-#Total Sequences	18257083
-#Sequences flagged as poor quality	0
-#Sequence length	49
-#%GC	47
-#############################################################################################################################
-#screen output from indexing
-index [bwa_index] Pack FASTA... 1.67 sec
-[bwa_index] Construct BWT for the packed sequence...
-[BWTIncCreate] textLength=204385202, availableWord=26381084
-[BWTIncConstructFromPacked] 10 iterations done. 43516610 characters processed.
-[BWTIncConstructFromPacked] 20 iterations done. 80392946 characters processed.
-[BWTIncConstructFromPacked] 30 iterations done. 113164658 characters processed.
-[BWTIncConstructFromPacked] 40 iterations done. 142288210 characters processed.
-[BWTIncConstructFromPacked] 50 iterations done. 168169266 characters processed.
-[BWTIncConstructFromPacked] 60 iterations done. 191168370 characters processed.
-[bwt_gen] Finished constructing BWT in 67 iterations.
-[bwa_index] 97.94 seconds elapse.
-[bwa_index] Update BWT... 1.60 sec
-[bwa_index] Pack forward-only FASTA... 1.13 sec
-[bwa_index] Construct SA from BWT and Occ... 43.84 sec
-[main] Version: 0.7.17-r1188
-[main] CMD: bwa index -a bwtsw dmel-all-gene-r6.27.fasta
-[main] Real time: 149.253 sec; CPU: 146.179 sec
-#############################################################################################################################
-#screen outout from alignment
-[main] Real time: 2803.426 sec; CPU: 2846.461 sec
-	Command being timed: "bwa mem bwa_index/dmel-all-gene-r6.27.fasta /home/elshaimaa/NGS_Proj/SRR8878057.fastq"
-	User time (seconds): 2828.51
-	System time (seconds): 17.96
-	Percent of CPU this job got: 101%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 46:43.44
-	Average shared text size (kbytes): 0
-	Average unshared data size (kbytes): 0
-	Average stack size (kbytes): 0
-	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 501460
-	Average resident set size (kbytes): 0
-	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 751606
-	Voluntary context switches: 436659
-	Involuntary context switches: 269098
-	Swaps: 0
-	File system inputs: 7907984
-	File system outputs: 6647344
-	Socket messages sent: 0
-	Socket messages received: 0
-	Signals delivered: 0
-	Page size (bytes): 4096
-Exit status: 0
