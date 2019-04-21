@@ -10,65 +10,48 @@
 #Sequences flagged as poor quality	0
 #Sequence length	49
 #%GC	47
-###########################################################################
-
-############################################################################
-#screen output from hisat2-build
-Exiting GFM::buildToDisk()
-Returning from initFromVector
-Wrote 45705331 bytes to primary GFM file: dmel-all-gene-r6.27.fasta.1.ht2
-Wrote 25520668 bytes to secondary GFM file: dmel-all-gene-r6.27.fasta.2.ht2
-Re-opening _in1 and _in2 as input streams
-Returning from GFM constructor
-Returning from initFromVector
-Wrote 179101249 bytes to primary GFM file: dmel-all-gene-r6.27.fasta.5.ht2
-Wrote 25649276 bytes to secondary GFM file: dmel-all-gene-r6.27.fasta.6.ht2
-Re-opening _in5 and _in5 as input streams
-Returning from HierEbwt constructor
-Headers:
-    len: 102082641
-    gbwtLen: 102082642
-    nodes: 102082642
-    sz: 25520661
-    gbwtSz: 25520661
-    lineRate: 7
-    offRate: 4
-    offMask: 0xfffffff0
-    ftabChars: 10
-    eftabLen: 0
-    eftabSz: 0
-    ftabLen: 1048577
-    ftabSz: 4194308
-    offsLen: 6380166
-    offsSz: 25520664
-    lineSz: 128
-    sideSz: 128
-    sideGbwtSz: 112
-    sideGbwtLen: 448
-    numSides: 227864
-    numLines: 227864
-    gbwtTotLen: 29166592
-    gbwtTotSz: 29166592
-    reverse: 0
-    linearFM: Yes
-Total time for call to driver() for forward index: 00:03:36
-#############################################################################
-
-#Screen output from hisat2 alignment
-18257083 reads; of these:
-  18257083 (100.00%) were unpaired; of these:
-    2312144 (12.66%) aligned 0 times
-    12833405 (70.29%) aligned exactly 1 time
-    3111534 (17.04%) aligned >1 times
-87.34% overall alignment rate
-###############################################################################
-
-#Screen output from sorting the bam file
-[bam_sort_core] merging from 6 files and 1 in-memory blocks...
-###############################################################################
-
-
-#################################################################################
-
-
-
+#############################################################################################################################
+#screen output from indexing
+index [bwa_index] Pack FASTA... 1.67 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=204385202, availableWord=26381084
+[BWTIncConstructFromPacked] 10 iterations done. 43516610 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 80392946 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 113164658 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 142288210 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 168169266 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 191168370 characters processed.
+[bwt_gen] Finished constructing BWT in 67 iterations.
+[bwa_index] 97.94 seconds elapse.
+[bwa_index] Update BWT... 1.60 sec
+[bwa_index] Pack forward-only FASTA... 1.13 sec
+[bwa_index] Construct SA from BWT and Occ... 43.84 sec
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa index -a bwtsw dmel-all-gene-r6.27.fasta
+[main] Real time: 149.253 sec; CPU: 146.179 sec
+#############################################################################################################################
+#screen outout from alignment
+[main] Real time: 2803.426 sec; CPU: 2846.461 sec
+	Command being timed: "bwa mem bwa_index/dmel-all-gene-r6.27.fasta /home/elshaimaa/NGS_Proj/SRR8878057.fastq"
+	User time (seconds): 2828.51
+	System time (seconds): 17.96
+	Percent of CPU this job got: 101%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 46:43.44
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 501460
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 751606
+	Voluntary context switches: 436659
+	Involuntary context switches: 269098
+	Swaps: 0
+	File system inputs: 7907984
+	File system outputs: 6647344
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
